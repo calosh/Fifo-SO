@@ -1,0 +1,67 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Resulatados</title>
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+<div class="container">
+  <h1>Algoritmo FIFO</h1>
+</div>
+<div class="container">
+<h2>Resuldados</h2>
+  <table class="table table-hover">
+    <tr>
+    <th>Proceso</th>
+    {% for i in procesos %}
+       <th>{{i}}</th>
+    {% endfor %}
+    </tr>
+    <tr>
+     <td>RCPU</td>
+    {% for i in rafaga_cpu %}
+       <td>{{i}}</td>
+    {% endfor %}
+    </tr>
+    <tr>
+     <td>TLL</td>
+    {% for i in tiempo_llegada %}
+       <td>{{i}}</td>
+    {% endfor %}
+    </tr>
+    <tr>
+     <td>TE</td>
+    {% for i in tiempo_espera %}
+       <td>{{i}}</td>
+    {% endfor %}
+    </tr>
+    
+    <tr>
+     <td>TR</td>
+    {% for i in tiempo_retorno %}
+       <td>{{i}}</td>
+    {% endfor %}
+    </tr>
+  </table>
+    <p>Tiempo Promedio de Espera: <b>{{ttl}} <i>ut</i></b></p>
+
+    <p>Tiempo Promedio de Respuesta: <b>{{tr}} <i>ut</i></b></p>
+</div>
+
+<div class="container">
+  <h2>Grafico</h2>
+  <img src="{% static 'myfig.png' %}">
+
+</div>
+
+<div class="container">
+  <a href="{% url 'index' %}" class="btn btn-success">Regresar</a>
+</div>
+
+
+<script src="{% static "js/bootstrap.min.js" %}"></script>
+</body>
+</html>
