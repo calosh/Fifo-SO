@@ -19,6 +19,12 @@
 </dl>
 
 <form class="form-horizontal" method="POST">{% csrf_token %}
+  {% if  error %}  
+  <div class="form-group has-error has-feedback">
+    <label class="control-label">{{error}}</label>
+  </div>
+  {% endif %}
+
   <div class="form-group">
     <label class="col-sm-2 control-label">Procesos: </label>
     <div class="col-sm-10">

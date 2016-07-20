@@ -1,6 +1,6 @@
+# -*- coding: utf-8 -*-
 from django.shortcuts import render
 import os
-from time import sleep
 
 # Create your views here.
 #from __future__ import division
@@ -36,10 +36,19 @@ def index(request):
         rafaga_cpu = rafaga_cpu.split(',')
 
         try:
+            if len(procesos)==len(tiempo_llegada) and len(tiempo_llegada)==len(rafaga_cpu):
+                pass
+            else:
+                raise 
+        except Exception, e:
+            return render(request, 'index.html',{'error':'Lista de Datos de diferente tamaño'})
+        
+
+        try:
             tiempo_llegada = map(float, tiempo_llegada)
             rafaga_cpu = map(float, rafaga_cpu)
         except Exception, e:
-            return render(request, 'index.html')
+            return render(request, 'index.html',{'error':'Ingreso Datos no numéricos'})
   
         
         
@@ -96,7 +105,7 @@ def index(request):
         aux_x = []
         for i in range(len(x)):
 
-            aux_x.append(str(x[i])+"\n"+str(procesos[i]))
+            aux_x.append(str(int(x[i]))+"\n"+str(procesos[i]))
         
         print aux_x
         # Barras
@@ -108,8 +117,8 @@ def index(request):
         plt.savefig(os.path.join(BASE_DIR,'static/myfig'))
         plt.close()
    
-        return render(request, 'resultados.html',{'procesos':procesos, 'rafaga_cpu':rafaga_cpu,'tiempo_llegada':tiempo_llegada,
-            'tiempo_espera':tiempo_espera,'tiempo_retorno':tiempo_retorno,'ttl':ttl,'tr':tr})
+        return render(request, 'resultados.html',{'procesos':procesos, 'rafaga_cpu':map(int,rafaga_cpu),'tiempo_llegada':map(int,tiempo_llegada),
+            'tiempo_espera':map(int,tiempo_espera),'tiempo_retorno':map(int,tiempo_retorno),'ttl':ttl,'tr':tr})
     else:
         return render(request, 'index.html')
 
